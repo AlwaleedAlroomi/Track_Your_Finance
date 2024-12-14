@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       // initialRoute: AppRoutes.home,
       onGenerateRoute: AppRoutes.generateRoute,
-      home: MyHomePage(title: "title"),
+      home: const MyHomePage(title: "title"),
     );
   }
 }
