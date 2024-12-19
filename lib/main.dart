@@ -1,6 +1,7 @@
 import 'package:financial_tracker/config/routes.dart';
 import 'package:financial_tracker/config/theme.dart';
 import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/features/categories/presentation/categories_screen.dart';
 import 'package:financial_tracker/screens/home_screen.dart';
 import 'package:financial_tracker/screens/transaction_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
-      // initialRoute: AppRoutes.home,
       onGenerateRoute: AppRoutes.generateRoute,
       home: const MyHomePage(title: "title"),
     );
@@ -39,7 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final List<Widget> _screenOptions = [
     const HomeScreen(),
-    const TransactionScreen()
+    const TransactionScreen(),
+    const CategoriesScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,32 +54,47 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         body: _screenOptions.elementAt(_selectedIndex),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, AppRoutes.transaction);
-          },
-          tooltip: 'New Transaction',
-          child: const Icon(Icons.add),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: ('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: ('Category'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: ('Setting'),
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: AppColors.primary,
-          onTap: _onItemTapped,
-        ),
+        floatingActionButton: _selectedIndex == 0
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.transaction);
+                },
+                tooltip: 'New Transaction',
+                label: const Row(
+                  children: [Icon(Icons.add), Text("New Transaction")],
+                ),
+              )
+            : null,
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        bottomNavigationBar: _selectedIndex == 0
+            ? BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      color: AppColors.textSecondary,
+                    ),
+                    label: ('Home'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.transfer_within_a_station_outlined,
+                        color: AppColors.textSecondary),
+                    label: ('transaction'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.category, color: AppColors.textSecondary),
+                    label: ('Category'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings),
+                    label: ('Setting'),
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: AppColors.primary,
+                onTap: _onItemTapped,
+              )
+            : null,
       ),
     );
   }

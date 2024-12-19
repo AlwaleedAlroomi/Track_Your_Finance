@@ -1,3 +1,4 @@
+import 'package:financial_tracker/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../core/constants/colors.dart';
@@ -55,62 +56,52 @@ class TransactionScreenState extends State<TransactionScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.home,
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.close),
+            iconSize: 35,
+          ),
+          title: const Text(
+            "New Transaction",
+            style: TextStyle(color: AppColors.textPrimary),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  final enteredAmount =
+                      _amountController.text.replaceAll(",", "");
+                  _noteFocusNode.unfocus();
+                  _amountFocusNode.unfocus();
+                  // Parse the cleaned string to a double
+                  double amount = double.parse(enteredAmount);
+                  String transactionType = _getTransactionType();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 3),
+                      content: Text(
+                          "Amount entered: \$$amount, ${formatter.format(now)}, $transactionType\n${_noteController.text}, "),
+                    ),
+                  );
+                }
+              },
+              icon: const Icon(Icons.save_alt),
+              iconSize: 35,
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close),
-                        iconSize: 35,
-                      ),
-                      const Expanded(
-                        child: Center(
-                          child: Text(
-                            "New Transaction",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final enteredAmount =
-                                _amountController.text.replaceAll(",", "");
-                            _noteFocusNode.unfocus();
-                            _amountFocusNode.unfocus();
-                            // Parse the cleaned string to a double
-                            double amount = double.parse(enteredAmount);
-                            String transactionType = _getTransactionType();
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                duration: const Duration(seconds: 3),
-                                content: Text(
-                                    "Amount entered: \$$amount, ${formatter.format(now)}, $transactionType\n${_noteController.text}, "),
-                              ),
-                            );
-                          }
-                        },
-                        icon: const Icon(Icons.save_alt),
-                        iconSize: 35,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -416,7 +407,8 @@ class TransactionScreenState extends State<TransactionScreen> {
           ),
           TextButton(
             style: const ButtonStyle(
-                iconColor: WidgetStatePropertyAll(AppColors.primary)),
+              iconColor: WidgetStatePropertyAll(AppColors.primary),
+            ),
             onPressed: onPressedFunc,
             child: Row(
               children: [

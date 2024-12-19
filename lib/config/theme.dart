@@ -12,7 +12,7 @@ class AppTheme {
       bodyMedium: TextStyle(color: AppColors.textSecondary),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.background,
       elevation: 0,
       titleTextStyle: TextStyle(
         color: AppColors.textAccent,
