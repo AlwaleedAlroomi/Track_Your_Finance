@@ -32,5 +32,30 @@ class AppTheme {
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: AppColors.accent,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      isDense: true,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      hintStyle: const TextStyle(color: AppColors.textSecondary),
+      enabledBorder: _buildBorder(),
+      focusedBorder: _buildBorder(color: AppColors.primary),
+      errorBorder: _buildBorder(color: AppColors.error),
+      focusedErrorBorder: _buildBorder(color: AppColors.error),
+      floatingLabelAlignment: FloatingLabelAlignment.start,
+      labelStyle: const TextStyle(color: AppColors.textSecondary),
+      floatingLabelStyle: const TextStyle(color: AppColors.primary),
+      errorStyle: const TextStyle(color: AppColors.error),
+    ),
   );
+
+  static OutlineInputBorder _buildBorder({Color? color}) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(
+        color: color ?? AppColors.border,
+        width: 1.5,
+      ),
+    );
+  }
 }

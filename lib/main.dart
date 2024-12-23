@@ -2,6 +2,7 @@ import 'package:financial_tracker/config/routes.dart';
 import 'package:financial_tracker/config/theme.dart';
 import 'package:financial_tracker/core/constants/colors.dart';
 import 'package:financial_tracker/features/categories/presentation/categories_screen.dart';
+import 'package:financial_tracker/features/settings/settings_screen.dart';
 import 'package:financial_tracker/screens/home_screen.dart';
 import 'package:financial_tracker/screens/transaction_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const HomeScreen(),
     const TransactionScreen(),
     const CategoriesScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -66,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             : null,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        bottomNavigationBar: _selectedIndex == 0
+        bottomNavigationBar: _selectedIndex == 0 || _selectedIndex == 3
             ? BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
@@ -86,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: ('Category'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.settings),
+                    icon: Icon(Icons.settings, color: AppColors.textSecondary),
                     label: ('Setting'),
                   ),
                 ],

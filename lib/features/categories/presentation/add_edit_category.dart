@@ -116,41 +116,26 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
                         color: _selectedColor,
                       ),
                     ),
-                    Container(
-                      width: 250,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(width: 4, color: AppColors.border),
-                      ),
-                      child: Center(
-                        child: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            focusNode: _categoryNameFocusNode,
-                            controller: _categoryNameController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                              hintText: "Category Name",
-                              hintStyle: TextStyle(
-                                color: AppColors.textSecondary,
-                              ),
-                              alignLabelWithHint: true,
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              errorStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Please enter a valid name";
-                              }
-                              return null;
-                            },
+                    SizedBox(
+                      width: 300,
+                      height: 75,
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          focusNode: _categoryNameFocusNode,
+                          controller: _categoryNameController,
+                          keyboardType: TextInputType.text,
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            helperText: "",
+                            label: Text("Category Name"),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter a valid name";
+                            }
+                            return null;
+                          },
                         ),
                       ),
                     ),

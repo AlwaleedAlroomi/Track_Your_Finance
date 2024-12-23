@@ -178,6 +178,8 @@ class TransactionScreenState extends State<TransactionScreen> {
                                 ),
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                helperText: "",
                                 errorStyle: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -208,7 +210,7 @@ class TransactionScreenState extends State<TransactionScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               _buildTransactionFields(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -223,10 +225,9 @@ class TransactionScreenState extends State<TransactionScreen> {
                     minLines: null,
                     decoration: const InputDecoration(
                       hintText: "Notes",
+                      focusedBorder: InputBorder.none,
                       border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        color: AppColors.textSecondary,
-                      ),
+                      enabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
