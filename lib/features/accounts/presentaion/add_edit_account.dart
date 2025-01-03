@@ -14,7 +14,9 @@ class AddEditAccount extends StatefulWidget {
 class _AddEditAccountState extends State<AddEditAccount> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _accountNameController;
+  final _accountFocusNode = FocusNode();
   late TextEditingController _accountBalanceController;
+  final _accountBalanceFocusNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -27,7 +29,9 @@ class _AddEditAccountState extends State<AddEditAccount> {
   @override
   void dispose() {
     _accountNameController.dispose();
+    _accountFocusNode.dispose();
     _accountBalanceController.dispose();
+    _accountBalanceFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,8 +49,10 @@ class _AddEditAccountState extends State<AddEditAccount> {
               size: 30,
             ),
           ),
-          title: const Text(
-            "Add New Account",
+          title: Text(
+            widget.account?.accountName == null
+                ? "Add New Account"
+                : "Edit Account",
             style: const TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
@@ -55,7 +61,7 @@ class _AddEditAccountState extends State<AddEditAccount> {
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.addEditAccount);
               },
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.save_alt),
             ),
           ],
           bottom: const PreferredSize(
@@ -71,6 +77,7 @@ class _AddEditAccountState extends State<AddEditAccount> {
               children: [
                 TextFormField(
                   controller: _accountNameController,
+                  focusNode: _accountFocusNode,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.center,
                   decoration: const InputDecoration(
@@ -80,6 +87,7 @@ class _AddEditAccountState extends State<AddEditAccount> {
                 ),
                 TextFormField(
                   controller: _accountBalanceController,
+                  focusNode: _accountBalanceFocusNode,
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: const InputDecoration(

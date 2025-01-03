@@ -224,7 +224,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
+                  crossAxisCount: 4,
                   crossAxisSpacing: 50,
                   mainAxisSpacing: 10,
                 ),
@@ -232,41 +232,43 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
                 itemBuilder: (context, index) {
                   final icon = allIcons[index];
                   return Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
-                      spacing: 2,
+                      // spacing: 2,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedCategoryIcon = icon;
-                            });
-                          },
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              boxShadow: _selectedCategoryIcon == icon
-                                  ? [
-                                      BoxShadow(
-                                        color:
-                                            _selectedColor?.withOpacity(0.4) ??
-                                                Colors.black,
-                                        spreadRadius: 5,
-                                        blurRadius: 10,
-                                        offset: const Offset(
-                                          0,
-                                          3,
-                                        ), // changes position of shadow
-                                      ),
-                                    ]
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                icon,
-                                size: 30,
+                        Flexible(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedCategoryIcon = icon;
+                              });
+                            },
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                boxShadow: _selectedCategoryIcon == icon
+                                    ? [
+                                        BoxShadow(
+                                          color: _selectedColor
+                                                  ?.withOpacity(0.4) ??
+                                              Colors.black,
+                                          spreadRadius: 5,
+                                          blurRadius: 10,
+                                          offset: const Offset(
+                                            0,
+                                            3,
+                                          ), // changes position of shadow
+                                        ),
+                                      ]
+                                    : null,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  icon,
+                                  size: 30,
+                                ),
                               ),
                             ),
                           ),

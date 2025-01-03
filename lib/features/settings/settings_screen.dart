@@ -19,19 +19,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoutes.categories,
-                (route) => false,
-              );
-            },
-            icon: const Icon(
-              Icons.close,
-              size: 30,
-            ),
-          ),
           title: const Text(
             "Settings",
             style: TextStyle(color: AppColors.textPrimary),
@@ -60,7 +47,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 setState(() {
                   isFaceIDSwitched = value;
                 });
-
               },
             ),
             _settingOptions(

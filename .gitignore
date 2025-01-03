@@ -47,3 +47,5 @@ app.*.map.json
 .metadata
 
 .vscode/
+
+/lib/features/wish_list/data/repositories/unsplash_api_key.dart

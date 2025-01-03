@@ -51,12 +51,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              // Navigator.pushNamedAndRemoveUntil(
-              //   context,
-              //   AppRoutes.home,
-              //   (route) => false,
-              // );
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.home,
+                (route) => false,
+              );
             },
             icon: const Icon(
               Icons.arrow_back,

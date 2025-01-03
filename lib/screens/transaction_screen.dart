@@ -1,4 +1,5 @@
 import 'package:financial_tracker/config/routes.dart';
+import 'package:financial_tracker/core/utils/format_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../core/constants/colors.dart';
@@ -19,16 +20,6 @@ class TransactionScreenState extends State<TransactionScreen> {
   final FocusNode _noteFocusNode = FocusNode();
   DateTime now = DateTime.now();
   DateFormat formatter = DateFormat('dd-MMM-yyyy');
-
-  String _formatNumber(String value) {
-    // Remove any non-digit characters
-    String cleanedValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-    if (cleanedValue.isEmpty) return '';
-
-    // Convert to an integer and format with commas
-    int number = int.parse(cleanedValue);
-    return NumberFormat('#,###').format(number);
-  }
 
   @override
   void dispose() {
@@ -161,7 +152,7 @@ class TransactionScreenState extends State<TransactionScreen> {
                               focusNode: _amountFocusNode,
                               controller: _amountController,
                               onChanged: (value) {
-                                String formattedValue = _formatNumber(value);
+                                String formattedValue = formatNumber(value);
                                 // Update the controller with the formatted value
                                 _amountController.value = TextEditingValue(
                                   text: formattedValue,

@@ -1,7 +1,7 @@
 import 'package:financial_tracker/config/routes.dart';
 import 'package:financial_tracker/config/theme.dart';
 import 'package:financial_tracker/core/constants/colors.dart';
-import 'package:financial_tracker/features/categories/presentation/categories_screen.dart';
+import 'package:financial_tracker/features/wish_list/presentation/wishlist_screen.dart';
 import 'package:financial_tracker/features/settings/settings_screen.dart';
 import 'package:financial_tracker/screens/home_screen.dart';
 import 'package:financial_tracker/screens/transaction_screen.dart';
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _screenOptions = [
     const HomeScreen(),
     const TransactionScreen(),
-    const CategoriesScreen(),
+    const WishlistScreen(),
     const SettingsScreen(),
   ];
 
@@ -68,7 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             : null,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        bottomNavigationBar: _selectedIndex == 0 || _selectedIndex == 3
+        bottomNavigationBar: _selectedIndex == 0 ||
+                _selectedIndex == 3 ||
+                _selectedIndex == 2
             ? BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
@@ -84,8 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: ('transaction'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.category, color: AppColors.textSecondary),
-                    label: ('Category'),
+                    icon: Icon(Icons.shopping_basket,
+                        color: AppColors.textSecondary),
+                    label: ('Wish List'),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.settings, color: AppColors.textSecondary),

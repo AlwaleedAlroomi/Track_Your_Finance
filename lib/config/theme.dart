@@ -15,7 +15,7 @@ class AppTheme {
       backgroundColor: AppColors.background,
       elevation: 0,
       titleTextStyle: TextStyle(
-        color: AppColors.textAccent,
+        color: AppColors.textPrimary,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
@@ -46,6 +46,17 @@ class AppTheme {
       labelStyle: const TextStyle(color: AppColors.textSecondary),
       floatingLabelStyle: const TextStyle(color: AppColors.primary),
       errorStyle: const TextStyle(color: AppColors.error),
+    ),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(AppColors.primary),
+        textStyle: WidgetStatePropertyAll<TextStyle>(
+          TextStyle(
+            color: AppColors.textSecondary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     ),
   );
 
