@@ -1,5 +1,5 @@
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/accounts/domain/models/account_model.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +59,7 @@ class _AddEditAccountState extends State<AddEditAccount> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.addEditAccount);
+                Navigator.pushNamed(context, RouteNames.addEditAccount);
               },
               icon: const Icon(Icons.save_alt),
             ),

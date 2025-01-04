@@ -1,10 +1,9 @@
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/config/theme.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/theme.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/wish_list/presentation/wishlist_screen.dart';
-import 'package:financial_tracker/features/settings/settings_screen.dart';
-import 'package:financial_tracker/screens/home_screen.dart';
-import 'package:financial_tracker/screens/transaction_screen.dart';
+import 'package:financial_tracker/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -40,9 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final List<Widget> _screenOptions = [
     const HomeScreen(),
-    const TransactionScreen(),
     const WishlistScreen(),
-    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -59,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: _selectedIndex == 0
             ? FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.transaction);
+                  Navigator.pushNamed(context, RouteNames.transaction);
                 },
                 tooltip: 'New Transaction',
                 label: const Row(
@@ -68,38 +65,24 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             : null,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        bottomNavigationBar: _selectedIndex == 0 ||
-                _selectedIndex == 3 ||
-                _selectedIndex == 2
-            ? BottomNavigationBar(
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      color: AppColors.textSecondary,
-                    ),
-                    label: ('Home'),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.transfer_within_a_station_outlined,
-                        color: AppColors.textSecondary),
-                    label: ('transaction'),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_basket,
-                        color: AppColors.textSecondary),
-                    label: ('Wish List'),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.settings, color: AppColors.textSecondary),
-                    label: ('Setting'),
-                  ),
-                ],
-                currentIndex: _selectedIndex,
-                selectedItemColor: AppColors.primary,
-                onTap: _onItemTapped,
-              )
-            : null,
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: AppColors.textSecondary,
+              ),
+              label: ('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_basket, color: AppColors.textSecondary),
+              label: ('Wish List'),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: AppColors.primary,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

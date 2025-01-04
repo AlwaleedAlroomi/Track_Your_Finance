@@ -1,4 +1,4 @@
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/wish_list/data/repositories/image_search_repository.dart';
 import 'package:flutter/material.dart';
 

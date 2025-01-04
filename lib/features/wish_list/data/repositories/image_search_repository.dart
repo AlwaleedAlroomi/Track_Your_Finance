@@ -11,7 +11,6 @@ class ImageSearchRepository {
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final results = jsonData['results'] as List;
-        print(results);
         return results
             .map<String>((result) => result['urls']['regular'] as String)
             .toList();

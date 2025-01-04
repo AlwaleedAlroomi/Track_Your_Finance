@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/core/widgets/custom_progressbar.dart';
 import 'package:financial_tracker/features/wish_list/domain/model/wishlist_model.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +79,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.addEditWish);
+                Navigator.pushNamed(context, RouteNames.addEditWish);
               },
               icon: const Icon(Icons.add),
             ),
@@ -99,7 +99,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.addEditWish,
+                  Navigator.pushNamed(context, RouteNames.addEditWish,
                       arguments: wish);
                 },
                 child: Container(

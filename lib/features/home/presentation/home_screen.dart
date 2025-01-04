@@ -1,10 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../features/accounts/domain/models/account_model.dart';
+import '../../accounts/domain/models/account_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -93,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteNames.setting);
+                    },
                     icon: const Icon(Icons.settings_outlined),
                     iconSize: 40,
                   )
@@ -112,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (index == accounts.length) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.addEditAccount);
+                      Navigator.pushNamed(context, RouteNames.addEditAccount);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 17.0),
@@ -164,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 final account = accounts[index];
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.showAccount,
+                    Navigator.pushNamed(context, RouteNames.showAccount,
                         arguments: account);
                   },
                   child: Container(
@@ -215,16 +217,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     const SizedBox(width: 5),
-                                    Column(
+                                    const Column(
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Income',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         Text(
                                           '\$1000}',
-                                          style: const TextStyle(
-                                              color: Colors.white),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -249,16 +250,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     const SizedBox(width: 5),
-                                    Column(
+                                    const Column(
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Expenses',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         Text(
                                           '\$1000}',
-                                          style: const TextStyle(
-                                              color: Colors.white),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -304,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 6),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.transaction);
+              Navigator.pushNamed(context, RouteNames.transaction);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 17.0),

@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/core/utils/format_utils.dart';
 import 'package:financial_tracker/features/wish_list/domain/model/wishlist_model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AddEditWish extends StatefulWidget {
   final Wishlist? wishlistItem;
@@ -73,7 +72,7 @@ class _AddEditWishState extends State<AddEditWish> {
                           ),
                           onPressed: () async {
                             final value = await Navigator.pushNamed(
-                                context, AppRoutes.imagePicker);
+                                context, RouteNames.imagePicker);
                             setState(() {
                               _imageURL =
                                   value == null ? _imageURL : value.toString();
@@ -83,7 +82,7 @@ class _AddEditWishState extends State<AddEditWish> {
                       : GestureDetector(
                           onTap: () async {
                             final value = await Navigator.pushNamed(
-                                context, AppRoutes.imagePicker);
+                                context, RouteNames.imagePicker);
                             setState(() {
                               _imageURL =
                                   value == null ? _imageURL : value.toString();

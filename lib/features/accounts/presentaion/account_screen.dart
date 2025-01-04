@@ -1,7 +1,7 @@
-import 'package:financial_tracker/config/routes.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/features/accounts/domain/models/account_model.dart';
 import 'package:flutter/material.dart';
-import '../../../core/constants/colors.dart';
+import '../../../core/themes/colors.dart';
 
 class AccountScreen extends StatefulWidget {
   final Account account;
@@ -35,7 +35,7 @@ class _AccountScreenState extends State<AccountScreen> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.addEditAccount,
+                Navigator.pushNamed(context, RouteNames.addEditAccount,
                     arguments: widget.account);
               },
               icon: const Icon(Icons.edit),

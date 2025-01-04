@@ -1,5 +1,5 @@
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/categories/domain/models/category_model.dart';
 import 'package:financial_tracker/features/categories/icons.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                AppRoutes.categories,
+                RouteNames.categories,
                 (route) => false,
               );
             },

@@ -1,5 +1,5 @@
-import 'package:financial_tracker/config/routes.dart';
-import 'package:financial_tracker/core/constants/colors.dart';
+import 'package:financial_tracker/core/routes/routes_name.dart';
+import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/categories/domain/models/category_model.dart';
 import 'package:flutter/material.dart';
 
@@ -51,11 +51,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoutes.home,
-                (route) => false,
-              );
+              // Navigator.pushNamedAndRemoveUntil(
+              //   context,
+              //   RouteNames.home,
+              //   (route) => false,
+              // );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -70,7 +71,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.newEditCategory);
+                Navigator.pushNamed(context, RouteNames.newEditCategory);
               },
               icon: const Icon(
                 Icons.add,
@@ -87,7 +88,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.newEditCategory,
+                  Navigator.pushNamed(context, RouteNames.newEditCategory,
                       arguments: category);
                 },
                 child: Container(
@@ -134,7 +135,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             height: 60,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.newEditCategory);
+                Navigator.pushNamed(context, RouteNames.newEditCategory);
               },
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(AppColors.primary),
