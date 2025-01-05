@@ -10,6 +10,7 @@ import 'package:financial_tracker/features/wish_list/domain/model/wishlist_model
 import 'package:financial_tracker/features/wish_list/presentation/choose_image.dart';
 import 'package:financial_tracker/features/home/presentation/home_screen.dart';
 import 'package:financial_tracker/features/transaction/presentation/transaction_screen.dart';
+import 'package:financial_tracker/features/wish_list/presentation/show_item.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_tracker/core/routes/routes_name.dart';
 
@@ -42,6 +43,10 @@ class AppRoutes {
             builder: (_) => AddEditWish(wishlistItem: wishToEdit));
       case RouteNames.imagePicker:
         return MaterialPageRoute(builder: (_) => const ImagePicker());
+      case RouteNames.showWish:
+        final wishItem = settings.arguments as Wishlist;
+        return MaterialPageRoute(
+            builder: (_) => ShowWishItem(wishListItem: wishItem));
 
       default:
         return MaterialPageRoute(

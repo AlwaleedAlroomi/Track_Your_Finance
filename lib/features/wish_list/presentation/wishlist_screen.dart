@@ -99,7 +99,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, RouteNames.addEditWish,
+                  Navigator.pushNamed(context, RouteNames.showWish,
                       arguments: wish);
                 },
                 child: Container(

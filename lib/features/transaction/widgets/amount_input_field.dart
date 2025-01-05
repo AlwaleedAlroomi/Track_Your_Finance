@@ -5,11 +5,13 @@ import '../../../core/utils/format_utils.dart';
 class AmountInputField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
+  final GlobalKey<FormState> formKey;
 
   const AmountInputField({
     super.key,
     required this.controller,
     required this.focusNode,
+    required this.formKey,
   });
 
   @override
@@ -18,6 +20,7 @@ class AmountInputField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Form(
+          key: formKey,
           child: Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width * .5,
@@ -35,7 +38,8 @@ class AmountInputField extends StatelessWidget {
                             offset: formattedValue.length),
                       );
                     },
-                    keyboardType: TextInputType.number,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       hintText: "Amount",

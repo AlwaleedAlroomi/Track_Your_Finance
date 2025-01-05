@@ -11,15 +11,15 @@ class ImagePicker extends StatefulWidget {
 
 class _ImagePickerState extends State<ImagePicker> {
   final _formKey = GlobalKey<FormState>();
-  final _ImageNameController = TextEditingController();
-  final _ImageNameFocusNode = FocusNode();
+  final _imageNameController = TextEditingController();
+  final _imageNameFocusNode = FocusNode();
   bool isLoading = false;
   final List<String> images = [];
 
   @override
   void dispose() {
-    _ImageNameController.dispose();
-    _ImageNameFocusNode.dispose();
+    _imageNameController.dispose();
+    _imageNameFocusNode.dispose();
     super.dispose();
   }
 
@@ -35,8 +35,8 @@ class _ImagePickerState extends State<ImagePicker> {
             child: Column(
               children: [
                 TextFormField(
-                  controller: _ImageNameController,
-                  focusNode: _ImageNameFocusNode,
+                  controller: _imageNameController,
+                  focusNode: _imageNameFocusNode,
                   keyboardType: TextInputType.name,
                   onChanged: (value) {},
                   decoration: const InputDecoration(
@@ -46,13 +46,13 @@ class _ImagePickerState extends State<ImagePicker> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    _ImageNameFocusNode.unfocus();
+                    _imageNameFocusNode.unfocus();
                     setState(() {
                       isLoading = true;
                     });
                     try {
                       final fetchedImages = await ImageSearchRepository()
-                          .searchImages(_ImageNameController.text.trim());
+                          .searchImages(_imageNameController.text.trim());
                       setState(() {
                         images.clear();
                         images.addAll(fetchedImages);

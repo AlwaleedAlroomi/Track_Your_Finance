@@ -107,6 +107,7 @@ class TransactionScreenState extends State<TransactionScreen> {
               ),
               const SizedBox(height: 50),
               AmountInputField(
+                formKey: _formKey,
                 controller: _amountController,
                 focusNode: _amountFocusNode,
               ),
@@ -158,12 +159,6 @@ class TransactionScreenState extends State<TransactionScreen> {
     return Column(
       children: [
         _transactionProperty(
-          propertyName: 'Category',
-          buttonText: 'Choose',
-          onPressedFunc: () {},
-        ),
-        Divider(color: Colors.grey.shade300, thickness: 1),
-        _transactionProperty(
           propertyName: 'Date',
           buttonText: formatter.format(now),
           onPressedFunc: () async {
@@ -180,6 +175,12 @@ class TransactionScreenState extends State<TransactionScreen> {
               });
             }
           },
+        ),
+        Divider(color: Colors.grey.shade300, thickness: 1),
+        _transactionProperty(
+          propertyName: 'Category',
+          buttonText: 'Choose',
+          onPressedFunc: () {},
         ),
         Divider(color: Colors.grey.shade300, thickness: 1),
         _transactionProperty(
@@ -217,13 +218,13 @@ class TransactionScreenState extends State<TransactionScreen> {
         Divider(color: Colors.grey.shade300, thickness: 1),
         _transactionProperty(
           propertyName: 'From',
-          buttonText: 'Choose Account',
+          buttonText: 'Choose',
           onPressedFunc: () {},
         ),
         Divider(color: Colors.grey.shade300, thickness: 1),
         _transactionProperty(
           propertyName: 'To',
-          buttonText: 'Choose Account',
+          buttonText: 'Choose',
           onPressedFunc: () {},
         ),
         Divider(color: Colors.grey.shade300, thickness: 1),
@@ -269,115 +270,6 @@ class TransactionScreenState extends State<TransactionScreen> {
       ],
     );
   }
-  // Widget _buildTransactionFields() {
-  //   if (selectedIndex == 0 || selectedIndex == 1) {
-  //     return Column(
-  //       children: [
-  //         _transactionProperty(
-  //           propertyName: 'Category',
-  //           buttonText: 'Choose',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'Date',
-  //           buttonText: formatter.format(now),
-  //           onPressedFunc: () async {
-  //             DateTime? selectedDate = await showDatePicker(
-  //               context: context,
-  //               initialDate: now,
-  //               firstDate: DateTime(2000),
-  //               lastDate: DateTime(2101),
-  //             );
-  //             if (selectedDate != null) {
-  //               setState(() {
-  //                 now = selectedDate;
-  //               });
-  //             }
-  //           },
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'Account',
-  //           buttonText: 'Choose',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //       ],
-  //     );
-  //   } else if (selectedIndex == 2) {
-  //     return Column(
-  //       children: [
-  //         _transactionProperty(
-  //           propertyName: 'Date',
-  //           buttonText: formatter.format(now),
-  //           onPressedFunc: () async {
-  //             DateTime? selectedDate = await showDatePicker(
-  //               context: context,
-  //               initialDate: now,
-  //               firstDate: DateTime(2000),
-  //               lastDate: DateTime(2101),
-  //             );
-  //             if (selectedDate != null) {
-  //               setState(() {
-  //                 now = selectedDate;
-  //               });
-  //             }
-  //           },
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'From',
-  //           buttonText: 'Choose Account',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'To',
-  //           buttonText: 'Choose Account',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //       ],
-  //     );
-  //   } else if (selectedIndex == 3) {
-  //     return Column(
-  //       children: [
-  //         _transactionProperty(
-  //           propertyName: 'Date',
-  //           buttonText: formatter.format(now),
-  //           onPressedFunc: () async {
-  //             DateTime? selectedDate = await showDatePicker(
-  //               context: context,
-  //               initialDate: now,
-  //               firstDate: DateTime(2000),
-  //               lastDate: DateTime(2101),
-  //             );
-  //             if (selectedDate != null) {
-  //               setState(() {
-  //                 now = selectedDate;
-  //               });
-  //             }
-  //           },
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'Account',
-  //           buttonText: 'Choose',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //         _transactionProperty(
-  //           propertyName: 'Wish Item',
-  //           buttonText: 'Choose',
-  //           onPressedFunc: () {},
-  //         ),
-  //         Divider(color: Colors.grey.shade300, thickness: 1),
-  //       ],
-  //     );
-  //   }
-  //   return const SizedBox.shrink();
-  // }
 
   Widget _transactionProperty(
       {required String propertyName,

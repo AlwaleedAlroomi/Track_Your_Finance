@@ -7,5 +7,6 @@ class RouteNames {
   static const String showAccount = '/showAccount';
   static const String addEditAccount = '/addEditAccount';
   static const String addEditWish = '/addEditWish';
+  static const String showWish = '/showWish';
   static const String imagePicker = '/imagePicker';
 }

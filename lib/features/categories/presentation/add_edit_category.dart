@@ -1,4 +1,3 @@
-import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/categories/domain/models/category_model.dart';
 import 'package:financial_tracker/features/categories/icons.dart';
@@ -72,11 +71,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                RouteNames.categories,
-                (route) => false,
-              );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.close,

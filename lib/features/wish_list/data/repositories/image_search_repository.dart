@@ -18,7 +18,7 @@ class ImageSearchRepository {
         throw Exception('Failed to fetch images: ${response.statusCode}');
       }
     } catch (e) {
-      print(e);
+      // print(e);
       return [];
     }
   }
