@@ -23,6 +23,32 @@ class _ImagePickerState extends State<ImagePicker> {
     super.dispose();
   }
 
+  Future<void> fetchImages(String imageName) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final fetchedImages =
+          await ImageSearchRepository().searchImages(imageName);
+      setState(() {
+        images.clear();
+        images.addAll(fetchedImages);
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,41 +63,22 @@ class _ImagePickerState extends State<ImagePicker> {
                 TextFormField(
                   controller: _imageNameController,
                   focusNode: _imageNameFocusNode,
+                  textInputAction: TextInputAction.search,
+                  onFieldSubmitted: (value) {
+                    _imageNameFocusNode.unfocus();
+                    fetchImages(_imageNameController.text.trim());
+                  },
                   keyboardType: TextInputType.name,
                   onChanged: (value) {},
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     helperText: "",
-                    label: Text("Enter Wish Item Name"),
+                    labelText: "Search for your wish",
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () =>
+                          fetchImages(_imageNameController.text.trim()),
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    _imageNameFocusNode.unfocus();
-                    setState(() {
-                      isLoading = true;
-                    });
-                    try {
-                      final fetchedImages = await ImageSearchRepository()
-                          .searchImages(_imageNameController.text.trim());
-                      setState(() {
-                        images.clear();
-                        images.addAll(fetchedImages);
-                        isLoading = false;
-                      });
-                    } catch (e) {
-                      setState(() {
-                        isLoading = false;
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            e.toString(),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text("search"),
                 ),
                 const SizedBox(height: 16),
                 Expanded(

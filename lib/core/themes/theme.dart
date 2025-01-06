@@ -60,6 +60,10 @@ class AppTheme {
     ),
   );
 
+  static ThemeData darkTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+  );
+
   static OutlineInputBorder _buildBorder({Color? color}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),

@@ -163,7 +163,8 @@ class _AddEditWishState extends State<AddEditWish> {
                         child: TextFormField(
                           controller: _wishItemCurrentAmountController,
                           focusNode: _wishItemCurrentAmountFocusNode,
-                          keyboardType: TextInputType.number,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           textAlign: TextAlign.center,
                           decoration: const InputDecoration(
                             helperText: "",

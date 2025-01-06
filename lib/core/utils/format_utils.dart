@@ -1,12 +1,5 @@
 import 'package:intl/intl.dart';
 
-// String formatNumber(String value) {
-//   String cleanedValue = value.replaceAll(RegExp(r'[^0-9].'), '');
-//   if (cleanedValue.isEmpty) return '';
-
-//   int number = int.parse(cleanedValue);
-//   return NumberFormat('#,###').format(number);
-// }
 String formatNumber(String value, {int decimalPlaces = 3}) {
   // Remove all non-digit and non-decimal characters
   String cleanedValue = value.replaceAll(RegExp(r'[^0-9.]'), '');
@@ -31,4 +24,9 @@ String formatNumber(String value, {int decimalPlaces = 3}) {
 
   // Combine the formatted integer part and the decimal part
   return formattedInteger + decimalPart;
+}
+
+// format date
+String formatDate(DateTime date) {
+  return DateFormat('dd-MMM-yyyy').format(date);
 }

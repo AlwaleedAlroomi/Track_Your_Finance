@@ -16,20 +16,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: AppRoutes.generateRoute,
-      home: const MyHomePage(title: "title"),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -60,7 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 tooltip: 'New Transaction',
                 label: const Row(
-                  children: [Icon(Icons.add), Text("New Transaction")],
+                  children: [
+                    Icon(Icons.add),
+                    Text("New Transaction"),
+                  ],
                 ),
               )
             : null,
@@ -75,7 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
               label: ('Home'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket, color: AppColors.textSecondary),
+              icon: Icon(
+                Icons.shopping_basket,
+                color: AppColors.textSecondary,
+              ),
               label: ('Wish List'),
             ),
           ],

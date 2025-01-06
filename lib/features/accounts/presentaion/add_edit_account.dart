@@ -1,5 +1,6 @@
 import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/core/themes/colors.dart';
+import 'package:financial_tracker/core/utils/format_utils.dart';
 import 'package:financial_tracker/features/accounts/domain/models/account_model.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +89,15 @@ class _AddEditAccountState extends State<AddEditAccount> {
                 TextFormField(
                   controller: _accountBalanceController,
                   focusNode: _accountBalanceFocusNode,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onChanged: (value) {
+                    String formattedValue = formatNumber(value);
+                    _accountBalanceController.value = TextEditingValue(
+                      text: formattedValue,
+                      selection: TextSelection.collapsed(
+                          offset: formattedValue.length),
+                    );
+                  },
                   textAlign: TextAlign.center,
                   decoration: const InputDecoration(
                     helperText: "",
