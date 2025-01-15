@@ -64,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          // color: Colors.red,
                           borderRadius: BorderRadius.circular(25.0),
                           border: Border.all(
                             color: AppColors.border,
@@ -81,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Text(
                               "March 2022",
                               style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -139,7 +137,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: const Icon(
                                         Icons.add,
-                                        color: Colors.white,
                                         size: 30,
                                       ),
                                     ),
@@ -151,7 +148,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
                                         ),
                                       ),
                                     ),
@@ -300,7 +296,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -346,7 +341,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
                                 ),
                               ),
                             ),

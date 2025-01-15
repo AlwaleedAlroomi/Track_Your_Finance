@@ -28,7 +28,7 @@ class AppRoutes {
         return MaterialPageRoute(
             builder: (_) => AddEditCategoryScreen(category: category));
       case RouteNames.setting:
-        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
       case RouteNames.showAccount:
         final account = settings.arguments as Account;
         return MaterialPageRoute(

@@ -1,54 +1,55 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/features/settings/presentation/widgets/setting_option.dart';
-import 'package:flutter/material.dart';
+import 'package:financial_tracker/features/settings/riverpod/app_theme_riverpod.dart';
 
-import 'package:financial_tracker/core/themes/colors.dart';
+class SettingsScreen extends ConsumerWidget {
+  final List<ThemeMode> _themeslist = [
+    ThemeMode.dark,
+    ThemeMode.light,
+    ThemeMode.system
+  ];
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool isFaceIDSwitched = false;
-  bool isDarkModeSwitched = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedTheme = ref.watch(themeProvider).themeMode;
+    final themeNotifier = ref.read(themeProvider.notifier);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
             "Settings",
-            style: TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
         ),
         body: ListView(
           children: [
             SettingOptions(
-              optionName: "Dark Mode",
+              optionName: "App Theme",
               optionIcon: const Icon(Icons.close),
-              showSwitch: true,
-              switchValue: isDarkModeSwitched,
-              onSwitchChanged: (value) {
-                setState(() {
-                  isDarkModeSwitched = value;
-                });
-              },
+              child: DropdownButton<ThemeMode>(
+
+                value: selectedTheme,
+                onChanged: (newTheme) {
+                  themeNotifier.saveTheme(newTheme!);
+                },
+                items: _themeslist
+                    .map<DropdownMenuItem<ThemeMode>>((ThemeMode theme) {
+                  return DropdownMenuItem(
+                    value: theme,
+                    child: Text(theme.toString().split('.').last),
+                  );
+                }).toList(),
+              ),
             ),
             SettingOptions(
               optionName: "Face ID",
               optionIcon: const Icon(Icons.money),
-              switchValue: isFaceIDSwitched,
               showSwitch: true,
-              onSwitchChanged: (value) {
-                setState(() {
-                  isFaceIDSwitched = value;
-                });
-              },
+              onSwitchChanged: (value) {},
             ),
             SettingOptions(
               optionName: "Categories",

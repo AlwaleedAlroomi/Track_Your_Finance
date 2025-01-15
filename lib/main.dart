@@ -2,23 +2,32 @@ import 'package:financial_tracker/core/routes/routes.dart';
 import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/core/themes/theme.dart';
 import 'package:financial_tracker/core/themes/colors.dart';
+import 'package:financial_tracker/features/settings/riverpod/app_theme_riverpod.dart';
 import 'package:financial_tracker/features/wish_list/presentation/wishlist_screen.dart';
 import 'package:financial_tracker/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider).themeMode;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.light,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: theme,
       onGenerateRoute: AppRoutes.generateRoute,
       home: const MyHomePage(),
     );

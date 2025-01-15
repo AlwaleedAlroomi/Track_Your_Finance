@@ -64,7 +64,6 @@ class TransactionScreenState extends State<TransactionScreen> {
           ),
           title: const Text(
             "New Transaction",
-            style: TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
           actions: [

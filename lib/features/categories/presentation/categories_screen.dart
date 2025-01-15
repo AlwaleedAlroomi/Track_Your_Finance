@@ -51,11 +51,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              // Navigator.pushNamedAndRemoveUntil(
-              //   context,
-              //   RouteNames.home,
-              //   (route) => false,
-              // );
               Navigator.pop(context);
             },
             icon: const Icon(
@@ -65,7 +60,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
           title: const Text(
             "Categories",
-            style: TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
           actions: [
@@ -118,7 +112,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         category.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textPrimary,
                         ),
                       ),
                     ],
@@ -142,7 +135,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
               child: const Text(
                 "Create New",
-                style: TextStyle(color: AppColors.textAccent),
               ),
             ),
           ),

@@ -29,7 +29,6 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
           title: Text(
             widget.account.accountName,
-            style: const TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
           actions: [

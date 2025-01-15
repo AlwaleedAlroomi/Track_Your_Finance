@@ -73,7 +73,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
         appBar: AppBar(
           title: const Text(
             "Wish List Items",
-            style: TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
           actions: [
@@ -84,10 +83,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               icon: const Icon(Icons.add),
             ),
           ],
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(20),
-            child: SizedBox(height: 20),
-          ),
+
         ),
         body: ListView.builder(
           itemCount: wishlist.length,
@@ -138,7 +134,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                               wish.name,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: AppColors.textPrimary,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),

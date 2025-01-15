@@ -51,7 +51,6 @@ class SettingOptions extends StatelessWidget {
                   optionName,
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textPrimary,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

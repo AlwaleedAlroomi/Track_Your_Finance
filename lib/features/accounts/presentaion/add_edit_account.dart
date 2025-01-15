@@ -54,7 +54,6 @@ class _AddEditAccountState extends State<AddEditAccount> {
             widget.account?.accountName == null
                 ? "Add New Account"
                 : "Edit Account",
-            style: const TextStyle(color: AppColors.textPrimary),
           ),
           centerTitle: true,
           actions: [
