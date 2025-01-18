@@ -29,6 +29,7 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
           title: Text(
             widget.account.accountName,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [

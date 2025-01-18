@@ -71,8 +71,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             "Wish List Items",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [
@@ -83,7 +84,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
               icon: const Icon(Icons.add),
             ),
           ],
-
         ),
         body: ListView.builder(
           itemCount: wishlist.length,

@@ -80,7 +80,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
           ),
           title: Text(
             widget.category != null ? "Edit Category" : "Add Category",
-            style: const TextStyle(color: AppColors.textPrimary),
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [

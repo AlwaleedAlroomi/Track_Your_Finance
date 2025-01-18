@@ -7,10 +7,7 @@ class AppTheme {
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.background,
     cardColor: AppColors.cardBackground,
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: AppColors.textPrimary),
-      bodyMedium: TextStyle(color: AppColors.textSecondary),
-    ),
+    textTheme: lightTextTheme,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.background,
       elevation: 0,
@@ -70,11 +67,7 @@ class AppTheme {
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: Colors.black,
     cardColor: const Color(0xFF1E1E1E), // Dark card background
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white),
-      titleMedium: TextStyle(color: Colors.white),
-    ),
+    textTheme: darkTextTheme,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
       elevation: 0,
@@ -143,3 +136,143 @@ class AppTheme {
     );
   }
 }
+
+TextTheme darkTextTheme = const TextTheme(
+  // Headlines
+  headlineLarge: TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textAccent,
+  ),
+  headlineMedium: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textAccent,
+  ),
+  headlineSmall: TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textAccent,
+  ),
+
+  // Titles
+  titleLarge: TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+  titleMedium: TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+  titleSmall: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+
+  // Body
+  bodyLarge: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textAccent,
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textAccent,
+  ),
+  bodySmall: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.disabled,
+  ),
+
+  // Labels (e.g., buttons)
+  labelLarge: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+  labelSmall: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textAccent,
+  ),
+);
+
+TextTheme lightTextTheme = const TextTheme(
+  // Headlines
+  headlineLarge: TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  ),
+  headlineMedium: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  ),
+  headlineSmall: TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  ),
+
+  // Titles
+  titleLarge: TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+  titleMedium: TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+  titleSmall: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+
+  // Body
+  bodyLarge: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textPrimary,
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textPrimary,
+  ),
+  bodySmall: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textSecondary,
+  ),
+
+  // Labels (e.g., buttons)
+  labelLarge: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+  labelSmall: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  ),
+);

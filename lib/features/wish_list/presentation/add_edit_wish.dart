@@ -72,7 +72,9 @@ class _AddEditWishState extends State<AddEditWish> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-              widget.wishlistItem != null ? "Edit Wish Item" : "New Wish Item"),
+            widget.wishlistItem != null ? "Edit Wish Item" : "New Wish Item",
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           centerTitle: true,
         ),
         body: Padding(
@@ -163,8 +165,8 @@ class _AddEditWishState extends State<AddEditWish> {
                         child: TextFormField(
                           controller: _wishItemCurrentAmountController,
                           focusNode: _wishItemCurrentAmountFocusNode,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           textAlign: TextAlign.center,
                           decoration: const InputDecoration(
                             helperText: "",

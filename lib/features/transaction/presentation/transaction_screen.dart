@@ -62,8 +62,9 @@ class TransactionScreenState extends State<TransactionScreen> {
             icon: const Icon(Icons.close),
             iconSize: 35,
           ),
-          title: const Text(
+          title: Text(
             "New Transaction",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [

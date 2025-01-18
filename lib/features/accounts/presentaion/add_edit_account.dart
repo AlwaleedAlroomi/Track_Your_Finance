@@ -54,6 +54,7 @@ class _AddEditAccountState extends State<AddEditAccount> {
             widget.account?.accountName == null
                 ? "Add New Account"
                 : "Edit Account",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [
@@ -88,7 +89,8 @@ class _AddEditAccountState extends State<AddEditAccount> {
                 TextFormField(
                   controller: _accountBalanceController,
                   focusNode: _accountBalanceFocusNode,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value) {
                     String formattedValue = formatNumber(value);
                     _accountBalanceController.value = TextEditingValue(

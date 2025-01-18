@@ -58,8 +58,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               size: 30,
             ),
           ),
-          title: const Text(
+          title: Text(
             "Categories",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           actions: [
