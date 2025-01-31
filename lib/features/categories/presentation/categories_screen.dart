@@ -138,11 +138,9 @@ class CategoriesScreen extends ConsumerWidget {
               onPressed: () {
                 Navigator.pushNamed(context, RouteNames.newEditCategory);
               },
-              style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(AppColors.primary),
-              ),
-              child: const Text(
-                "Create New",
+              child: Text(
+                "Create New Category",
+                style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
           ),

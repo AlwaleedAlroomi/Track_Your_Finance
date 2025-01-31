@@ -118,7 +118,7 @@ class AppTheme {
         backgroundColor: WidgetStatePropertyAll(AppColors.primary),
         textStyle: WidgetStatePropertyAll<TextStyle>(
           TextStyle(
-            color: AppColors.textAccent,
+            color: AppColors.warning,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -268,7 +268,7 @@ TextTheme lightTextTheme = const TextTheme(
   labelMedium: TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
+    color: AppColors.textAccent,
   ),
   labelSmall: TextStyle(
     fontSize: 12,
