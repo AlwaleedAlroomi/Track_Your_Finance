@@ -1,18 +1,20 @@
 import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/features/categories/domain/models/category_model.dart';
 import 'package:financial_tracker/features/categories/icons.dart';
+import 'package:financial_tracker/features/categories/provider/categories_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddEditCategoryScreen extends StatefulWidget {
+class AddEditCategoryScreen extends ConsumerStatefulWidget {
   final Category? category;
 
   const AddEditCategoryScreen({super.key, this.category});
 
   @override
-  State<AddEditCategoryScreen> createState() => _AddEditCategoryScreenState();
+  _AddEditCategoryScreenState createState() => _AddEditCategoryScreenState();
 }
 
-class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
+class _AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
   final _formKey = GlobalKey<FormState>();
   final _categoryNameController = TextEditingController();
   final _categoryNameFocusNode = FocusNode();
@@ -54,7 +56,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
     if (widget.category != null) {
       // Pre-fill fields for editing.
       _categoryNameController.text = widget.category!.name;
-      _selectedCategoryIcon = widget.category!.icon.icon;
+      _selectedCategoryIcon = widget.category!.icon;
       _selectedColor = widget.category!.color;
     } else {
       // Default settings for adding.
@@ -85,10 +87,32 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
           centerTitle: true,
           actions: [
             TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Save",
-                style: TextStyle(
+              onPressed: () async {
+                final newCategory = Category(
+                  id: widget.category?.id,
+                    name: _categoryNameController.text.trim(),
+                    color: _selectedColor!,
+                    icon: _selectedCategoryIcon!,
+                );
+                if(widget.category == null){
+                  await ref
+                      .read(categoriesNotifierProvider.notifier)
+                      .addCategory(newCategory);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("new category added")));
+                }else {
+                  await ref
+                      .read(categoriesNotifierProvider.notifier)
+                      .updateCategory(newCategory);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("category updated")));
+                }
+
+                Navigator.pop(context);
+              },
+              child:  Text(
+                widget.category == null ? "Save" : "Update",
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: AppColors.textPrimary,
                 ),

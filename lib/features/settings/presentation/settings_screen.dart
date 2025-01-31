@@ -1,4 +1,5 @@
 import 'package:financial_tracker/core/themes/colors.dart';
+import 'package:financial_tracker/core/utils/is_dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:financial_tracker/core/routes/routes_name.dart';
@@ -13,12 +14,6 @@ class SettingsScreen extends ConsumerWidget {
   ];
 
   SettingsScreen({super.key});
-
-  bool _isDarkMode(BuildContext context, ThemeMode selectedTheme) {
-    return selectedTheme == ThemeMode.dark ||
-        (selectedTheme == ThemeMode.system &&
-            MediaQuery.of(context).platformBrightness == Brightness.dark);
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,7 +43,7 @@ class SettingsScreen extends ConsumerWidget {
                       color: AppColors.border,
                     )),
                 child: DropdownButton<ThemeMode>(
-                  dropdownColor: _isDarkMode(context, selectedTheme)
+                  dropdownColor: isDarkMode(context, selectedTheme)
                       ? AppColors.textPrimary
                           .withValues(alpha: 0.8) // Gray for dark mode
                       : null,

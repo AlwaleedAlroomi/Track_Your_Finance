@@ -22,7 +22,7 @@ class AppTheme {
       foregroundColor: AppColors.textAccent,
     ),
     buttonTheme: const ButtonThemeData(
-      buttonColor: AppColors.primary,
+      buttonColor: AppColors.textAccent,
       textTheme: ButtonTextTheme.primary,
     ),
     dividerColor: AppColors.divider,
@@ -49,7 +49,7 @@ class AppTheme {
         backgroundColor: WidgetStatePropertyAll(AppColors.primary),
         textStyle: WidgetStatePropertyAll<TextStyle>(
           TextStyle(
-            color: AppColors.textSecondary,
+            color: AppColors.textAccent,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -93,7 +93,7 @@ class AppTheme {
     ),
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
-      iconColor: WidgetStatePropertyAll(Colors.white),
+      iconColor: WidgetStatePropertyAll(AppColors.textAccent),
     )),
     iconTheme: const IconThemeData(
       color: Colors.white,

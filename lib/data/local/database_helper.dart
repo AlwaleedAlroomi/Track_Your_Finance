@@ -33,7 +33,7 @@ class DatabaseHelper {
       CREATE TABLE $categoriesTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        color TEXT NOT NULL,
+        color INTEGER NOT NULL,
         icon INTEGER NOT NULL
       )
     ''');
