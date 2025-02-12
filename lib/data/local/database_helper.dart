@@ -10,6 +10,7 @@ class DatabaseHelper {
 
   static Database? _database;
   final categoriesTableName = "categories";
+  final accountsTableName = 'accounts';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -35,6 +36,13 @@ class DatabaseHelper {
         name TEXT NOT NULL,
         color INTEGER NOT NULL,
         icon INTEGER NOT NULL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE $accountsTableName (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        accountName VARCHAR(255) NOT NULL,
+        balance DOUBLE NOT NULL 
       )
     ''');
   }

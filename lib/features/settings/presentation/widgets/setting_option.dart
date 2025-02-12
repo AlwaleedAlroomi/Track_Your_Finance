@@ -10,7 +10,7 @@ class SettingOptions extends StatelessWidget {
   final GestureTapCallback? onTap;
   final Widget? child;
 
-  const SettingOptions({
+const SettingOptions({
     super.key,
     required this.optionName,
     required this.optionIcon,

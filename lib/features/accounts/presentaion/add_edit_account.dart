@@ -1,29 +1,35 @@
 import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/core/utils/format_utils.dart';
 import 'package:financial_tracker/features/accounts/domain/models/account_model.dart';
+import 'package:financial_tracker/features/accounts/provider/accounts_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddEditAccount extends StatefulWidget {
+class AddEditAccount extends ConsumerStatefulWidget {
   final Account? account;
+
   const AddEditAccount({super.key, this.account});
 
   @override
-  State<AddEditAccount> createState() => _AddEditAccountState();
+  AddEditAccountState createState() => AddEditAccountState();
 }
 
-class _AddEditAccountState extends State<AddEditAccount> {
+class AddEditAccountState extends ConsumerState<AddEditAccount> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _accountNameController;
   final _accountFocusNode = FocusNode();
   late TextEditingController _accountBalanceController;
   final _accountBalanceFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
     _accountNameController =
         TextEditingController(text: widget.account?.accountName);
-    _accountBalanceController =
-        TextEditingController(text: widget.account?.balance.toString());
+    widget.account != null
+        ? _accountBalanceController = TextEditingController(
+            text: formatNumber(widget.account!.balance.toString()))
+        : _accountBalanceController = TextEditingController();
   }
 
   @override
@@ -57,9 +63,37 @@ class _AddEditAccountState extends State<AddEditAccount> {
           ),
           centerTitle: true,
           actions: [
+            if (widget.account != null)
+              IconButton(
+                onPressed: () async {
+                  await ref
+                      .read(accountsNotifierProvider.notifier)
+                      .deleteAccount(widget.account!);
+                  Navigator.pushNamedAndRemoveUntil(context, RouteNames.home,
+                      (Route<dynamic> route) => false);
+                },
+                icon: const Icon(Icons.delete),
+              ),
             IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteNames.addEditAccount);
+              onPressed: () async {
+                final newAcc = Account(
+                  id: widget.account?.id,
+                  accountName: _accountNameController.text,
+                  balance: double.parse(
+                      _accountBalanceController.text.replaceAll(",", "")),
+                );
+                if (widget.account == null) {
+                  await ref
+                      .read(accountsNotifierProvider.notifier)
+                      .addAccount(newAcc);
+                  Navigator.pushNamedAndRemoveUntil(context, RouteNames.home,
+                      (Route<dynamic> route) => false);
+                } else {
+                  await ref
+                      .read(accountsNotifierProvider.notifier)
+                      .updateAccount(newAcc);
+                  Navigator.pop(context, newAcc);
+                }
               },
               icon: const Icon(Icons.save_alt),
             ),
@@ -95,7 +129,8 @@ class _AddEditAccountState extends State<AddEditAccount> {
                     _accountBalanceController.value = TextEditingValue(
                       text: formattedValue,
                       selection: TextSelection.collapsed(
-                          offset: formattedValue.length),
+                        offset: formattedValue.length,
+                      ),
                     );
                   },
                   textAlign: TextAlign.center,

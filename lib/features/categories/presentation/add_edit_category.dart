@@ -11,10 +11,10 @@ class AddEditCategoryScreen extends ConsumerStatefulWidget {
   const AddEditCategoryScreen({super.key, this.category});
 
   @override
-  _AddEditCategoryScreenState createState() => _AddEditCategoryScreenState();
+  AddEditCategoryScreenState createState() => AddEditCategoryScreenState();
 }
 
-class _AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
+class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
   final _formKey = GlobalKey<FormState>();
   final _categoryNameController = TextEditingController();
   final _categoryNameFocusNode = FocusNode();
@@ -90,17 +90,17 @@ class _AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
               onPressed: () async {
                 final newCategory = Category(
                   id: widget.category?.id,
-                    name: _categoryNameController.text.trim(),
-                    color: _selectedColor!,
-                    icon: _selectedCategoryIcon!,
+                  name: _categoryNameController.text.trim(),
+                  color: _selectedColor!,
+                  icon: _selectedCategoryIcon!,
                 );
-                if(widget.category == null){
+                if (widget.category == null) {
                   await ref
                       .read(categoriesNotifierProvider.notifier)
                       .addCategory(newCategory);
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("new category added")));
-                }else {
+                } else {
                   await ref
                       .read(categoriesNotifierProvider.notifier)
                       .updateCategory(newCategory);
@@ -108,9 +108,9 @@ class _AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
                       const SnackBar(content: Text("category updated")));
                 }
 
-                Navigator.pop(context);
+                Navigator.pop;
               },
-              child:  Text(
+              child: Text(
                 widget.category == null ? "Save" : "Update",
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,

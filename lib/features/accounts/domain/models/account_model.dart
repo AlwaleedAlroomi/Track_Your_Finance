@@ -1,19 +1,28 @@
 class Account {
-  final int id;
+  int? id;
   final String accountName;
   final double balance;
 
   Account({
-    required this.id,
+    this.id,
     required this.accountName,
     required this.balance,
   });
 
-  factory Account.fromJson(Map<String, dynamic> json) {
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'accountName': accountName,
+      'balance': balance,
+    };
+  }
+
+  // Convert a map from the database to a Category object
+  factory Account.fromMap(Map<String, dynamic> map) {
     return Account(
-      id: json['id'] as int,
-      accountName: json['accountName'] as String,
-      balance: json['balance'] as double,
+      id: map['id'],
+      accountName: map['accountName'],
+      balance: map['balance'],
     );
   }
 }

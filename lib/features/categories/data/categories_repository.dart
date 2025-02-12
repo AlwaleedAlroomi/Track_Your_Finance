@@ -10,8 +10,10 @@ class CategoriesRepository {
   Future<int> addCategory(Category category) async {
     final db = await _databaseHelper.database;
     return await db.insert(
-        _databaseHelper.categoriesTableName, category.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+      _databaseHelper.categoriesTableName,
+      category.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   // Read
