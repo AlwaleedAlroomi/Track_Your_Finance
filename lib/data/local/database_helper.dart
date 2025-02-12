@@ -3,14 +3,17 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
+
   factory DatabaseHelper() {
     return _instance;
   }
+
   DatabaseHelper._internal();
 
   static Database? _database;
   final categoriesTableName = "categories";
   final accountsTableName = 'accounts';
+  final wishlistTableName = 'wishlist';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -42,7 +45,19 @@ class DatabaseHelper {
       CREATE TABLE $accountsTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         accountName VARCHAR(255) NOT NULL,
-        balance DOUBLE NOT NULL 
+        balance REAL NOT NULL 
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE $wishlistTableName (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        goalAmount REAL NOT NULL,
+        currentAmount REAL NOT NULL,
+        imageURL VARCHAR(255) NOT NULL,
+        dueDate TEXT NOT NULL,
+        isCompleted INTEGER NOT NULL,
+        imageURL TEXT
       )
     ''');
   }
