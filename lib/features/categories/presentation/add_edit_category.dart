@@ -18,6 +18,8 @@ class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
   final _formKey = GlobalKey<FormState>();
   final _categoryNameController = TextEditingController();
   final _categoryNameFocusNode = FocusNode();
+  late String _isIncomeSource = 'true';
+
   late Icon _categoryIcon;
   late Color? _selectedColor;
   late IconData? _selectedCategoryIcon;
@@ -58,11 +60,13 @@ class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
       _categoryNameController.text = widget.category!.name;
       _selectedCategoryIcon = widget.category!.icon;
       _selectedColor = widget.category!.color;
+      _isIncomeSource = widget.category!.isIncomeSource.toString();
     } else {
       // Default settings for adding.
       _categoryIcon = const Icon(Icons.badge_sharp);
       _selectedColor = null;
       _selectedCategoryIcon = null;
+      _isIncomeSource = 'false';
     }
   }
 
@@ -93,6 +97,7 @@ class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
                   name: _categoryNameController.text.trim(),
                   color: _selectedColor!,
                   icon: _selectedCategoryIcon!,
+                  isIncomeSource: _isIncomeSource,
                 );
                 if (widget.category == null) {
                   await ref
@@ -108,7 +113,7 @@ class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
                       const SnackBar(content: Text("category updated")));
                 }
 
-                Navigator.pop;
+                Navigator.pop(context);
               },
               child: Text(
                 widget.category == null ? "Save" : "Update",
@@ -135,27 +140,61 @@ class AddEditCategoryScreenState extends ConsumerState<AddEditCategoryScreen> {
                         color: _selectedColor,
                       ),
                     ),
-                    SizedBox(
-                      width: 300,
-                      height: 75,
-                      child: Form(
-                        key: _formKey,
-                        child: TextFormField(
-                          focusNode: _categoryNameFocusNode,
-                          controller: _categoryNameController,
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
-                            helperText: "",
-                            label: Text("Category Name"),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        spacing: 2,
+                        children: [
+                          Expanded(
+                            child: Form(
+                              key: _formKey,
+                              child: TextFormField(
+                                focusNode: _categoryNameFocusNode,
+                                controller: _categoryNameController,
+                                keyboardType: TextInputType.text,
+                                textAlign: TextAlign.center,
+                                decoration: const InputDecoration(
+                                  helperText: "",
+                                  label: Text("Category Name"),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter a valid name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter a valid name";
-                            }
-                            return null;
-                          },
-                        ),
+                          Wrap(
+                            direction: Axis.vertical,
+                            children: [
+                              Center(
+                                child: Column(
+                                  children: [
+                                    Checkbox(
+                                        value: bool.parse(_isIncomeSource,
+                                            caseSensitive: false),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            String newValue = value == true
+                                                ? 'true'
+                                                : 'false';
+                                            _isIncomeSource = newValue;
+                                          });
+                                        }),
+                                    Text(
+                                      'Income Source?',
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ],

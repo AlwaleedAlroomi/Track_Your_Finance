@@ -5,12 +5,14 @@ class Category {
   final String name;
   final Color color;
   final IconData icon;
+  final String isIncomeSource;
 
   Category({
     this.id,
     required this.name,
     required this.color,
     required this.icon,
+    required this.isIncomeSource,
   });
 
   // Convert a Category object to a map for database storage
@@ -20,6 +22,7 @@ class Category {
       'name': name,
       'color': color.value,
       'icon': icon.codePoint,
+      'isIncomeSource': isIncomeSource,
     };
   }
 
@@ -30,6 +33,7 @@ class Category {
       name: map['name'],
       color: Color(map['color']),
       icon: IconData(map['icon'], fontFamily: "MaterialIcons"),
+      isIncomeSource: map['isIncomeSource'],
     );
   }
 }

@@ -38,7 +38,8 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         color INTEGER NOT NULL,
-        icon INTEGER NOT NULL
+        icon INTEGER NOT NULL,
+        isIncomeSource VARCHAR(5) NOT NULL
       )
     ''');
     await db.execute('''
@@ -54,10 +55,9 @@ class DatabaseHelper {
         name TEXT NOT NULL,
         goalAmount REAL NOT NULL,
         currentAmount REAL NOT NULL,
-        imageURL VARCHAR(255) NOT NULL,
         dueDate TEXT NOT NULL,
         isCompleted INTEGER NOT NULL,
-        imageURL TEXT
+        imageURL TEXT NOT NULL
       )
     ''');
   }

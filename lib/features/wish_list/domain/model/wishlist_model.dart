@@ -5,7 +5,7 @@ class Wishlist {
   final double goalAmount;
   final bool isCompleted;
   final double currentAmount;
-  final String? imageURL;
+  final String imageURL;
 
   Wishlist({
     required this.id,
@@ -14,7 +14,7 @@ class Wishlist {
     required this.goalAmount,
     required this.isCompleted,
     required this.currentAmount,
-    this.imageURL,
+    required this.imageURL,
   });
 
   Map<String, dynamic> toMap() {
@@ -37,7 +37,7 @@ class Wishlist {
       goalAmount: map['goalAmount'] as double,
       isCompleted: map['isCompleted'] as bool,
       currentAmount: map['currentAmount'] as double,
-      imageURL: map['imageURL'] as String ?? "",
+      imageURL: map['imageURL'] as String,
     );
   }
 }
