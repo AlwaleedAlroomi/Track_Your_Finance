@@ -93,25 +93,13 @@ class _AddEditWishState extends State<AddEditWish> {
                               Icons.add_a_photo,
                               size: 50,
                             ),
-                            onPressed: () async {
-                              final value = await Navigator.pushNamed(
-                                  context, RouteNames.imagePicker);
-                              setState(() {
-                                _imageURL = value == null
-                                    ? _imageURL
-                                    : value.toString();
-                              });
+                            onPressed: () {
+                              imageSourceDialog(context);
                             },
                           )
                         : GestureDetector(
                             onTap: () async {
-                              final value = await Navigator.pushNamed(
-                                  context, RouteNames.imagePicker);
-                              setState(() {
-                                _imageURL = value == null
-                                    ? _imageURL
-                                    : value.toString();
-                              });
+                              imageSourceDialog(context);
                             },
                             child: CachedNetworkImage(
                               imageUrl: _imageURL,
@@ -223,6 +211,103 @@ class _AddEditWishState extends State<AddEditWish> {
           ),
         ),
       ),
+    );
+  }
+
+  void imageSourceDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Choose Image Source"),
+          content: const Text(
+              "Do you want to enter an image URL or search Unsplash?"),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    showURLInputDialog(context);
+                  },
+                  child: Text(
+                    "Image URL",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    final value = await Navigator.pushNamed(
+                        context, RouteNames.imagePicker);
+                    if (value != null) {
+                      setState(() {
+                        _imageURL = value.toString();
+                      });
+                    } else {
+                      debugPrint("No URL");
+                    }
+                  },
+                  child: Text(
+                    "Unsplash",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String?> showURLInputDialog(BuildContext context) async {
+    TextEditingController urlController = TextEditingController();
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Enter the image URL for your wish"),
+          content: TextField(
+            controller: urlController,
+            decoration: const InputDecoration(
+              hintText: "Paste image URL here",
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Cancel",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final url = urlController.text.trim();
+                    if (url.isNotEmpty) {
+                      setState(() {
+                        _imageURL = url;
+                      });
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Text(
+                    "Submit",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 }
