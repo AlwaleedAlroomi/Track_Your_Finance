@@ -3,41 +3,32 @@ import 'package:financial_tracker/core/routes/routes_name.dart';
 import 'package:financial_tracker/core/themes/colors.dart';
 import 'package:financial_tracker/core/utils/format_utils.dart';
 import 'package:financial_tracker/features/wish_list/domain/model/wishlist_model.dart';
+import 'package:financial_tracker/features/wish_list/provider/wishlist_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class AddEditWish extends StatefulWidget {
-  final Wishlist? wishlistItem;
-  const AddEditWish({super.key, this.wishlistItem});
+class AddEditWish extends ConsumerStatefulWidget {
+  final int? wishlistItemId;
+  const AddEditWish({super.key, this.wishlistItemId});
 
   @override
-  State<AddEditWish> createState() => _AddEditWishState();
+  AddEditWishState createState() => AddEditWishState();
 }
 
-class _AddEditWishState extends State<AddEditWish> {
+class AddEditWishState extends ConsumerState<AddEditWish> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _wishItemNameController;
+  final TextEditingController _wishItemNameController = TextEditingController();
   final _wishItemNameFocusNode = FocusNode();
-  late TextEditingController _wishItemGoalAmountController;
+  final TextEditingController _wishItemGoalAmountController =
+      TextEditingController();
   final _wishItemGoalAmountFocusNode = FocusNode();
-  late TextEditingController _wishItemCurrentAmountController;
+  final TextEditingController _wishItemCurrentAmountController =
+      TextEditingController();
   final _wishItemCurrentAmountFocusNode = FocusNode();
-  late String _imageURL;
+  String _imageURL = "";
   final TextEditingController _dateController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _dateController.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    _wishItemNameController =
-        TextEditingController(text: widget.wishlistItem?.name);
-    _wishItemGoalAmountController =
-        TextEditingController(text: widget.wishlistItem?.goalAmount.toString());
-    _wishItemCurrentAmountController = TextEditingController(
-        text: widget.wishlistItem?.currentAmount.toString() ?? "0");
-    _imageURL = widget.wishlistItem?.imageURL ?? '';
-  }
-
+  DateTime wishDueDate = DateTime.now();
   @override
   void dispose() {
     _wishItemNameController.dispose();
@@ -53,14 +44,13 @@ class _AddEditWishState extends State<AddEditWish> {
   Future<void> _selectDate(BuildContext context) async {
     DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: DateFormat('yyyy-MM-dd').parse(_dateController.text),
+      initialDate: wishDueDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
     if (selectedDate != null) {
       setState(() {
-        // Update the text field with the selected date
         _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       });
     }
@@ -68,11 +58,53 @@ class _AddEditWishState extends State<AddEditWish> {
 
   @override
   Widget build(BuildContext context) {
+    Wishlist? wishlistItem;
+
+    if (widget.wishlistItemId != null) {
+      final wishlistAsync =
+          ref.watch(wishlistItemProvider(widget.wishlistItemId!));
+
+      return wishlistAsync.when(
+        data: (wishlist) {
+          wishlistItem = wishlist;
+          wishDueDate = wishlist?.dueDate ?? DateTime.now();
+          // Initialize the fields only once to prevent overwriting user input
+          if (_wishItemNameController.text.isEmpty) {
+            _wishItemNameController.text = wishlist?.name ?? "";
+          }
+          if (_wishItemGoalAmountController.text.isEmpty) {
+            _wishItemGoalAmountController.text =
+                wishlist?.goalAmount.toString() ?? "";
+          }
+          if (_wishItemCurrentAmountController.text.isEmpty) {
+            _wishItemCurrentAmountController.text =
+                wishlist?.currentAmount.toString() ?? "0";
+          }
+          if (_imageURL.isEmpty) {
+            _imageURL = wishlist?.imageURL ?? '';
+          }
+          if (_dateController.text.isEmpty) {
+            _dateController.text = wishlist?.dueDate != null
+                ? DateFormat('yyyy-MM-dd').format(wishlist!.dueDate)
+                : "";
+          }
+
+          return _buildForm(context, wishlistItem);
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) =>
+            Center(child: Text("Error loading wish item: $err")),
+      );
+    }
+    return _buildForm(context, null);
+  }
+
+  Widget _buildForm(BuildContext context, Wishlist? wishlistItem) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.wishlistItem != null ? "Edit Wish Item" : "New Wish Item",
+            wishlistItem != null ? "Edit Wish Item" : "New Wish Item",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
@@ -191,9 +223,43 @@ class _AddEditWishState extends State<AddEditWish> {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final goalAmount = _wishItemGoalAmountController
+                                .text
+                                .replaceAll(",", "");
+                            final currentAmount =
+                                _wishItemCurrentAmountController.text
+                                    .replaceAll(",", "");
+                            final progress = double.parse(currentAmount) /
+                                double.parse(goalAmount);
+                            final newWish = Wishlist(
+                              id: wishlistItem?.id,
+                              name: _wishItemNameController.text.trim(),
+                              dueDate: DateTime.parse(_dateController.text),
+                              goalAmount: double.parse(goalAmount),
+                              isCompleted: progress == 1 ? true : false,
+                              currentAmount: double.parse(currentAmount),
+                              imageURL: _imageURL,
+                            );
+
+                            if (wishlistItem == null) {
+                              await ref
+                                  .read(wishlistNotifierProvider.notifier)
+                                  .addWishListItem(newWish);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("new wish added")));
+                            } else {
+                              await ref
+                                  .read(wishlistNotifierProvider.notifier)
+                                  .updateWishListItem(newWish);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("wish added")));
+                            }
+                            Navigator.pop(context);
+                          },
                           child: Text(
-                            widget.wishlistItem == null
+                            wishlistItem == null
                                 ? "Add New Item"
                                 : "Edit The Item",
                             style: const TextStyle(
@@ -236,6 +302,7 @@ class _AddEditWishState extends State<AddEditWish> {
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ),
+                const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () async {
                     Navigator.pop(context);

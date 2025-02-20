@@ -56,7 +56,7 @@ class DatabaseHelper {
         goalAmount REAL NOT NULL,
         currentAmount REAL NOT NULL,
         dueDate TEXT NOT NULL,
-        isCompleted INTEGER NOT NULL,
+        isCompleted INTEGER NOT NULL DEFAULT 0,
         imageURL TEXT NOT NULL
       )
     ''');
